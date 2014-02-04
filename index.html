@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="/bower_components/angular/angular.min.js"></script>
+        <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="/bower_components/angular-route/angular-route.min.js"></script>
+        <script src="/lib/database.js"></script>
+    </head>
+    <body data-ng-app="Database">
+
+        <h1>Database: {{ database.name }}</h1>
+
+        <div data-ng-repeat="table in database.tables">
+            <h2>Table: {{ table.name }}</h2>
+
+            <div data-ng-repeat="record in table.records">
+                {{ record }}
+            </div>
+        </div>
+
+        <div data-ng-repeat="constraint in database.constraints">
+            <h2>Constraint: {{ constraint.name }}</h2>
+            {{ constraint }}
+        </div>
+
+    </body>
+</html>
