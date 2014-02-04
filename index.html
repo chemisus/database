@@ -11,6 +11,7 @@
     <body data-ng-app="Database">
 
         <h1>Database: {{ database.name }}</h1>
+        {{ database.migration }}
 
         <div data-ng-repeat="table in database.tables">
             <h2>Table: {{ table.name }}</h2>
