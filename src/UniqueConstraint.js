@@ -2,14 +2,12 @@ function UniqueConstraint(type) {
     angular.extend(this, new DatabaseConstraint());
 
     this.create = function (database, name, table_name, field_name) {
-        database.constraints[name] = {
+        new DatabaseFile().addConstraint(database, {
             name: name,
             type: type,
             table_name: table_name,
             field_name: field_name
-        };
-
-        database.tables[table_name].constraints.push(name);
+        });
     };
 
     this.preTableInsert = function (database, constraint_data, table_name, inserting) {

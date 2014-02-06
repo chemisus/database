@@ -2,10 +2,10 @@ function SaveDatabaseConstraint(type) {
     angular.extend(this, new DatabaseConstraint());
 
     this.create = function (database, name) {
-        database.constraints[name] = {
+        new DatabaseFile().addConstraint(database, {
             name: name,
             type: type
-        };
+        });
     };
 
     this.postDatabaseInsert = function (database, constraint_data, table_name, inserted) {

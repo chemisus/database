@@ -5,6 +5,8 @@ function DatabaseFile() {
             migration: 0,
             constraints: {
             },
+            constraint_keys: [
+            ],
             tables: {
             }
         };
@@ -36,5 +38,10 @@ function DatabaseFile() {
         }
 
         this.saveDatabase(database);
+    };
+
+    this.addConstraint = function (database, constraint) {
+        database.constraints[constraint.name] = constraint;
+        database.constraint_keys.push(constraint.name);
     };
 }
