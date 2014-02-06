@@ -44,4 +44,15 @@ function DatabaseFile() {
         database.constraints[constraint.name] = constraint;
         database.constraint_keys.push(constraint.name);
     };
+
+    /**
+     *
+     * @returns {DatabaseQueryBuilder}
+     */
+    this.query = function (database, constraints, table_name) {
+        var database_query = new DatabaseQuery();
+        var query = database_query.make(table_name);
+
+        return new DatabaseQueryBuilder(database, constraints, database_query, query);
+    }
 }

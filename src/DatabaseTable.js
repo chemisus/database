@@ -25,6 +25,33 @@ function DatabaseTable() {
         }
     };
 
+    this.select = function (database, constraints, table_name, query) {
+        query = {
+            from: 'table1',
+            where: {
+                op: 'or',
+                value: [
+                    {
+                        op: 'eq',
+                        field: 'id',
+                        value: {
+                            op: 'const',
+                            value: 9
+                        }
+                    },
+                    {
+                        op: 'eq',
+                        field: 'id',
+                        value: {
+                            op: 'const',
+                            value: 5
+                        }
+                    }
+                ]
+            }
+        };
+    };
+
     this.insert = function (database, constraints, table_name, record) {
         var table = database.tables[table_name];
 
@@ -35,5 +62,21 @@ function DatabaseTable() {
 
         this.callConstraint('postTableInsert', database, constraints, table_name, record);
         this.callConstraint('postDatabaseInsert', database, constraints, table_name, record);
+    };
+
+    this.delete = function (database, constraints, table_name, record) {
+        var table = database.tables[table_name];
+
+        this.callConstraint('preDatabaseDelete', database, constraints, table_name, record);
+        this.callConstraint('preTableDelete', database, constraints, table_name, record);
+
+        var index = table.records.indexOf(record);
+
+        if (index !== -1) {
+            table.records.splice(index, 1);
+        }
+
+        this.callConstraint('postTableDelete', database, constraints, table_name, record);
+        this.callConstraint('postDatabaseDelete', database, constraints, table_name, record);
     };
 }
